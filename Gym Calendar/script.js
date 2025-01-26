@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     // Empty cells after the last day
                     cell.className = 'calendar-cell empty';
                 } else {
-                    cell.textContent = date;
+                    cell.innerHTML = `<span>${date}</span>`;
                     if (date === currentDate.getDate() && 
                         month === currentDate.getMonth() && 
                         year === currentDate.getFullYear()) {

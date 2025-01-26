@@ -22,22 +22,24 @@ body {
 .modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0,0,0,0.7);
 }
 
 .modal-content {
-    background-color: white;
+    background-color: #ffffff;
     margin: 15% auto;
     padding: 20px;
     border-radius: 5px;
     width: 80%;
     max-width: 500px;
     position: relative;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    z-index: 1001;
 }
 
 .close {
@@ -94,6 +96,7 @@ body {
     justify-content: center;
     cursor: pointer;
     position: relative;
+    overflow: hidden;
 }
 
 .calendar-cell:hover:not(.empty):not(.header) {
@@ -134,7 +137,19 @@ body {
 }
 
 .calendar-cell .mood-icon {
-    width: 20px;
-    height: 20px;
+    width: 100%;
+    height: 100%;
     position: absolute;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+    opacity: 0.3;
+    z-index: 1;
+}
+
+.calendar-cell span {
+    position: relative;
+    z-index: 2;
+    font-weight: bold;
+    color: #000;
 }
