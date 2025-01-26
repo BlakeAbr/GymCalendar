@@ -63,7 +63,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         year === currentDate.getFullYear()) {
                         cell.className = 'calendar-cell today';
                     }
-                    cell.addEventListener('click', () => openModal(date, month, year));
+                    // Create a constant to capture the current date value
+                    const currentDateValue = date;
+                    cell.addEventListener('click', () => openModal(currentDateValue, month, year));
                     date++;
                 }
                 row.appendChild(cell);
