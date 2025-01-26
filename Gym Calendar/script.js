@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('addExercise').addEventListener('click', addExerciseRow);
 
     // Modify the save activity function
-    saveActivity.onclick = function() {
+    saveActivity.onclick = async function() {
         const exercises = [];
         document.querySelectorAll('#exerciseTable tbody tr').forEach(row => {
             const exerciseName = row.querySelector('.exercise-name').value;
@@ -194,12 +194,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 exercises.push({
                     exercise: exerciseName,
                     setsReps: setsReps,
-                    weight: weight || 'bodyweight' // Default to 'bodyweight' if no weight is specified
+                    weight: weight || 'bodyweight'
                 });
             }
         });
-        
-        console.log(`Workout for ${selectedDate.textContent}:`, exercises);
-        modal.style.display = 'none';
+
+        const workoutData = {
+            date: selectedDate.textContent,
+            mood: moodStorage[selectedDate.textContent]?.type,
+            exercises: exercises
+        };
+
+        try {
+            const response = await fetch('/api/workout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('userToken')}`
+                },
+                body: JSON.stringify(workoutData)
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to save workout');
+            }
+
+            modal.style.display = 'none';
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Failed to save workout');
+        }
     }
 });
