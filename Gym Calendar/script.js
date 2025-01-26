@@ -163,10 +163,43 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize calendar
     generateCalendar(currentMonth, currentYear);
 
+    function addExerciseRow() {
+        const tbody = document.querySelector('#exerciseTable tbody');
+        const newRow = document.createElement('tr');
+        newRow.innerHTML = `
+            <td><input type="text" class="exercise-name" placeholder="Exercise name"></td>
+            <td><input type="text" class="exercise-sets-reps" placeholder="e.g., 3x12"></td>
+            <td><input type="text" class="exercise-weight" placeholder="e.g., 135"></td>
+            <td><button class="delete-row">Delete</button></td>
+        `;
+        tbody.appendChild(newRow);
+
+        // Add delete functionality to the new row
+        newRow.querySelector('.delete-row').addEventListener('click', function() {
+            tbody.removeChild(newRow);
+        });
+    }
+
+    // Add event listener for the Add Exercise button
+    document.getElementById('addExercise').addEventListener('click', addExerciseRow);
+
+    // Modify the save activity function
     saveActivity.onclick = function() {
-        const activity = activityInput.value;
-        console.log(`Activity for ${selectedDate.textContent}: ${activity}`);
-        activityInput.value = '';
+        const exercises = [];
+        document.querySelectorAll('#exerciseTable tbody tr').forEach(row => {
+            const exerciseName = row.querySelector('.exercise-name').value;
+            const setsReps = row.querySelector('.exercise-sets-reps').value;
+            const weight = row.querySelector('.exercise-weight').value;
+            if (exerciseName && setsReps) {
+                exercises.push({
+                    exercise: exerciseName,
+                    setsReps: setsReps,
+                    weight: weight || 'bodyweight' // Default to 'bodyweight' if no weight is specified
+                });
+            }
+        });
+        
+        console.log(`Workout for ${selectedDate.textContent}:`, exercises);
         modal.style.display = 'none';
     }
 });

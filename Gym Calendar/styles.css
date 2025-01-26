@@ -153,3 +153,59 @@ body {
     font-weight: bold;
     color: #000;
 }
+
+.exercise-table {
+    margin: 20px 0;
+    width: 100%;
+}
+
+#exerciseTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 10px;
+}
+
+#exerciseTable th,
+#exerciseTable td {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+#exerciseTable th {
+    background-color: #f8f9fa;
+}
+
+#exerciseTable input {
+    width: 90%;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+#addExercise {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+#addExercise:hover {
+    background-color: #45a049;
+}
+
+.delete-row {
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.delete-row:hover {
+    background-color: #cc0000;
+}

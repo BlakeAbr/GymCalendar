@@ -24,8 +24,23 @@
                 <img src="neutral.png" data-type="neutral" class="mood-image" alt="Neutral">
                 <img src="sad.png" data-type="sad" class="mood-image" alt="Sad">
             </div>
-            <textarea id="activityInput" placeholder="What did you do today?"></textarea>
-            <button id="saveActivity">Save</button>
+            <div class="exercise-table">
+                <table id="exerciseTable">
+                    <thead>
+                        <tr>
+                            <th>Exercise</th>
+                            <th>Sets x Reps</th>
+                            <th>Weight (lbs)</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Rows will be added here dynamically -->
+                    </tbody>
+                </table>
+                <button id="addExercise">Add Exercise</button>
+            </div>
+            <button id="saveActivity">Save Workout</button>
         </div>
     </div>
     <script src="script.js"></script>
