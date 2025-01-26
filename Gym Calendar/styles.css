@@ -93,6 +93,7 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    position: relative;
 }
 
 .calendar-cell:hover:not(.empty):not(.header) {
@@ -113,4 +114,27 @@ body {
 .calendar-cell.today {
     background-color: #e6f3ff;
     font-weight: bold;
+}
+
+.image-selection {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+.mood-image {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.mood-image:hover {
+    transform: scale(1.1);
+}
+
+.calendar-cell .mood-icon {
+    width: 20px;
+    height: 20px;
+    position: absolute;
 }

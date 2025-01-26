@@ -10,8 +10,12 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentMonth = currentDate.getMonth();
     let currentYear = currentDate.getFullYear();
 
+    // Add storage for selected moods
+    const moodStorage = {};
+
     function openModal(day, month, year) {
-        selectedDate.textContent = `${month + 1}/${day}/${year}`;
+        const dateKey = `${month + 1}/${day}/${year}`;
+        selectedDate.textContent = dateKey;
         modal.style.display = 'block';
     }
 
@@ -67,6 +71,15 @@ document.addEventListener('DOMContentLoaded', function() {
                     const currentDateValue = date;
                     cell.addEventListener('click', () => openModal(currentDateValue, month, year));
                     date++;
+
+                    // After creating each date cell, check if there's a stored mood
+                    const dateKey = `${month + 1}/${currentDateValue}/${year}`;
+                    if (moodStorage[dateKey]) {
+                        const moodIcon = document.createElement('img');
+                        moodIcon.src = moodStorage[dateKey].src;
+                        moodIcon.className = 'mood-icon';
+                        cell.appendChild(moodIcon);
+                    }
                 }
                 row.appendChild(cell);
             }
@@ -103,6 +116,48 @@ document.addEventListener('DOMContentLoaded', function() {
         if (event.target === modal) {
             modal.style.display = 'none';
         }
+    }
+
+    // Add event listeners for mood images
+    document.querySelectorAll('.mood-image').forEach(img => {
+        img.addEventListener('click', function() {
+            const dateKey = selectedDate.textContent;
+            const moodType = this.getAttribute('data-type');
+            const imgSrc = this.src;
+            
+            // Store the selection
+            moodStorage[dateKey] = {
+                type: moodType,
+                src: imgSrc
+            };
+            
+            // Update calendar cell
+            updateCalendarCell(dateKey);
+            
+            // Close modal
+            modal.style.display = 'none';
+        });
+    });
+    
+    function updateCalendarCell(dateKey) {
+        const [month, day, year] = dateKey.split('/');
+        const cells = document.querySelectorAll('.calendar-cell');
+        
+        cells.forEach(cell => {
+            if (cell.textContent === day) {
+                // Remove existing mood icon if any
+                const existingIcon = cell.querySelector('.mood-icon');
+                if (existingIcon) {
+                    existingIcon.remove();
+                }
+                
+                // Add new mood icon
+                const moodIcon = document.createElement('img');
+                moodIcon.src = moodStorage[dateKey].src;
+                moodIcon.className = 'mood-icon';
+                cell.appendChild(moodIcon);
+            }
+        });
     }
 
     // Initialize calendar
