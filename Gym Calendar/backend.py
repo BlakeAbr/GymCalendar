@@ -1,9 +1,20 @@
+# Standard library imports
+import os
+from datetime import datetime
+
+# Third-party imports
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
-from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
-from werkzeug.security import generate_password_hash, check_password_hash
-from datetime import datetime
-import os
+from flask_jwt_extended import (
+    JWTManager,
+    create_access_token,
+    jwt_required,
+    get_jwt_identity
+)
+from werkzeug.security import (
+    generate_password_hash,
+    check_password_hash
+)
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///gym_progress.db'
